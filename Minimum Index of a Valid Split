@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minimumIndex(vector<int>& nums) {
+        
+        unordered_map<int,int>m;
+        int n=nums.size();
+        for(int i=0;i<nums.size();i++)
+        {
+            m[nums[i]]++;
+        }
+              unordered_map<int,int>mp;
+              for(int i=0;i<nums.size();i++)
+        {
+            int left=mp[nums[i]];
+             int right=m[nums[i]];
+             left++;
+             right--;
+             mp[nums[i]]++;
+             m[nums[i]]--;
+             if(left*2>(i+1) and right*2>(n-i-1))
+             return i;
+        }
+        return -1;
+
+    }
+};
