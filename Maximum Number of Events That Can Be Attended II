@@ -1,0 +1,24 @@
+class Solution {
+public:
+int solve(vector<vector<int>>& events,int ind,int k,vector<vector<int>>&dp)
+{
+    int i;
+    if(k==0||ind>=events.size())
+    return 0;
+    if(dp[ind][k]!=-1)
+    return dp[ind][k];
+    for( i=ind+1;i<events.size();i++)
+    {
+        if(events[i][0]>events[ind][1])
+        break;
+    }
+    int take=events[ind][2]+solve(events,i,k-1,dp);
+    int ntake=solve(events,ind+1,k,dp);
+    return dp[ind][k]=max(take,ntake);
+}
+    int maxValue(vector<vector<int>>& events, int k) {
+        sort(events.begin(),events.end());
+        vector<vector<int>>dp(events.size()+1,vector<int>(k+1,-1));
+        return solve(events,0,k,dp);
+    }
+};
